@@ -3,12 +3,15 @@ DLL permettant d'utiliser l'interface d'extension Ruby contenue dans RGSS104E.dl
 ## Comment l'utiliser ?
 Avant toute chose, il vaut que RGSS Linker soit initialisé, sachez que le RGSS peut se trouver à différents endroits de la mémoire donc RGSSLinker doit retrouver le RGSS.
 Pour initialiser le RGSS Linker il suffit d'insérer les lignes suivantes dans l'extesion principale :
-```if(RGSSLinker_Initialize("RGSS104E.dll"))
+```
+if(RGSSLinker_Initialize("RGSS104E.dll"))
   //Démarrer l'intialisation des extensions
 else
-  //Stopper toute opérations, le RGSSLinker n'a pas pu s'initialiser```
+  //Stopper toute opérations, le RGSSLinker n'a pas pu s'initialiser
+```
 Vous devez l'initialiser qu'une fois, je vous recommande d'utiliser l'initialisation par le RGSS qui se fait de la manière suivante :
-```unless $RGSS_Linker
+```
+unless $RGSS_Linker
   $RGSS_Linker = Win32API.new("RGSSLinker.dll","RGSSLinker_Initialize","p","i")
   if($RGSS_Linker.call("RGSS104E.dll") != 1)
     exit(0) #Echec de l'initialisation, on arrête le jeu
