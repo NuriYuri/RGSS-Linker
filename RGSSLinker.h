@@ -13,7 +13,7 @@
 #define _exportRGSSLinker 
 #endif
 
-typedef long* VALUE;
+typedef long VALUE;
 typedef long ID;
 typedef int* global_entry;
 
@@ -375,6 +375,11 @@ extern "C" {
 	_exportRGSSLinker VALUE rb_float_inf_e(VALUE self, VALUE arg1);
 	_exportRGSSLinker VALUE rb_float_abs(VALUE self);
 	_exportRGSSLinker VALUE rb_float_to_i(VALUE self);
+
+	_exportRGSSLinker long rb_num2long(VALUE numeric);
+	_exportRGSSLinker VALUE rb_ary_push(VALUE self, VALUE obj);
+	_exportRGSSLinker VALUE rb_ary_pop(VALUE self);
+	_exportRGSSLinker VALUE rb_ary_shift(VALUE self);
 }
 
 //---
@@ -417,6 +422,7 @@ enum RGSSLinkerInternalObjectLinks {
 	_id_rgsslinker_last_link
 };
 
+#ifndef BUILDING_DLL
 //---
 // Définition des structures et valeurs utiles de Ruby
 //---
@@ -592,3 +598,10 @@ struct RGSSBITMAP {
 	RSTRING(str)->len
 #define RSTRING_PTR(str) \
 	RSTRING(str)->ptr
+
+
+#define Qnil 4
+#define Qtrue 2
+#define Qfalse 0
+#define RTEST(v) (v & 0xFFFFFFFB)
+#endif
